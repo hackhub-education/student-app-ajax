@@ -49,3 +49,32 @@ $('#search-btn').click(function() {
     }
   })
 })
+
+// Part 3: Add new student using add student form
+
+$('#add-form').submit(function(e) {
+
+  e.preventDefault()
+
+  var skillList = $('#skills').val().split(',')
+
+  var newStudent = {
+    firstName: $('#fname').val(),
+    lastName: $('#lname').val(),
+    school: $('#school').val(),
+    age: $('#age').val(),
+    email: $('#email').val(),
+    skills: skillList,
+  }
+
+  $.ajax({
+    type: 'POST',
+    url: APIURL + '/student',
+    data: JSON.stringify(newStudent),
+    contentType: 'application/json',
+    success: function(data) { 
+      $('#add-form').trigger('reset')
+      alert('Success!')
+    }
+  });
+})
