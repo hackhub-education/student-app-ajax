@@ -27,3 +27,25 @@ $.ajax({
     })
   })
 })
+
+// Part 2: Fetch from server api during search
+
+var findUser = function(user, query) {
+    return !query || new RegExp(query,'i').test(user.firstName) ? user : false
+}
+
+$('#search-btn').click(function() {
+  
+  $('#user-container').empty()
+  var query = $('#search').val()
+
+  $.get(APIURL + '/student/', function(response) {
+    for (var i = 0; i < response.length; i++) {
+      if (findUser(response[i], query)) {
+        var currentUser = $('<div>').addClass('user').attr('id', response[i]._id)
+        $('<h1>').text(response[i].firstName).appendTo(currentUser)
+        $('#user-container').append(currentUser)
+      }
+    }
+  })
+})
