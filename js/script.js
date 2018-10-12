@@ -1,6 +1,6 @@
 // Part 1: Fetch all student index and show skill list on click 
 
-var APIURL = 'http://webdxd-student-api.herokuapp.com'
+var APIURL = 'http://localhost:3000'
 
 $.ajax({
   method: 'GET',
@@ -31,7 +31,8 @@ $.ajax({
 // Part 2: Fetch from server api during search
 
 var findUser = function(user, query) {
-  if (query && user) {
+  console.log(user)
+  if (query && user && user.skills) {
     console.log(user)
     return user.skills.includes(query) ? user : false
   } else {
